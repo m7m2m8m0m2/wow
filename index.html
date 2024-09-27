@@ -3,110 +3,90 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>簡單購物網站</title>
+    <title>110V無極調光吸頂燈</title>
     <style>
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 20px;
-            background-color: #f4f4f4;
+            background-color: #f8f9fa;
+            text-align: center;
         }
-        .container {
-            display: flex;
-            justify-content: space-between;
-        }
-        .product-list, .cart {
-            width: 45%;
+        .product-container {
+            max-width: 600px;
+            margin: 0 auto;
             background-color: #fff;
             padding: 20px;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         }
-        .product {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
+        .product-title {
+            font-size: 24px;
+            margin-bottom: 20px;
         }
-        .product h2 {
-            margin: 0;
+        .product-image img {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
         }
-        .product button {
-            padding: 5px 10px;
-            background-color: #28a745;
-            color: white;
-            border: none;
-            cursor: pointer;
-        }
-        .cart-item {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 10px;
-        }
-        .cart-item h2 {
-            margin: 0;
-        }
-        .total {
+        .options-container {
             margin-top: 20px;
-            font-weight: bold;
+        }
+        .option {
+            display: inline-block;
+            padding: 10px 20px;
+            margin: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: border-color 0.3s ease, transform 0.2s ease;
+        }
+        .option:hover {
+            border-color: #f39c12;
+        }
+        .option.selected {
+            border-color: #f39c12;
         }
     </style>
 </head>
 <body>
-    <h1>簡單購物網站</h1>
-    <div class="container">
-        <div class="product-list">
-            <h2>產品列表</h2>
-            <div class="product">
-                <h2>產品 A</h2>
-                <span>$10</span>
-                <button onclick="addToCart('產品 A', 10)">加入購物車</button>
-            </div>
-            <div class="product">
-                <h2>產品 B</h2>
-                <span>$15</span>
-                <button onclick="addToCart('產品 B', 15)">加入購物車</button>
-            </div>
-            <div class="product">
-                <h2>產品 C</h2>
-                <span>$20</span>
-                <button onclick="addToCart('產品 C', 20)">加入購物車</button>
-            </div>
+    <div class="product-container">
+        <h1 class="product-title">110V無極調光吸頂燈</h1>
+        <div class="product-image">
+            <img src="product.jpg" alt="110V無極調光吸頂燈">
         </div>
-
-        <div class="cart">
-            <h2>購物車</h2>
-            <div id="cart-items">
-                <!-- 購物車物品將會顯示在這裡 -->
-            </div>
-            <div class="total">
-                總金額: $<span id="total-amount">0</span>
-            </div>
+        <div class="options-container">
+            <div class="option" id="option-48W" onclick="selectOption('48W')">48W</div>
+            <div class="option" id="option-60W" onclick="selectOption('60W')">60W</div>
         </div>
     </div>
 
     <script>
-        let cart = [];
-        let totalAmount = 0;
+        let selectedOption = null;
 
-        function addToCart(productName, price) {
-            // 新增到購物車
-            cart.push({ name: productName, price: price });
-            totalAmount += price;
-            updateCart();
-        }
-
-        function updateCart() {
-            const cartItemsDiv = document.getElementById('cart-items');
-            const totalAmountSpan = document.getElementById('total-amount');
-            cartItemsDiv.innerHTML = ''; // 清空之前的購物車內容
-
-            cart.forEach(item => {
-                const cartItem = document.createElement('div');
-                cartItem.classList.add('cart-item');
-                cartItem.innerHTML = `<h2>${item.name}</h2><span>$${item.price}</span>`;
-                cartItemsDiv.appendChild(cartItem);
-            });
-
-            totalAmountSpan.innerText = totalAmount;
+        function selectOption(wattage) {
+            const option48W = document.getElementById('option-48W');
+            const option60W = document.getElementById('option-60W');
+            
+            if (wattage === '48W') {
+                if (selectedOption === '48W') {
+                    option48W.classList.remove('selected');
+                    selectedOption = null;
+                } else {
+                    option48W.classList.add('selected');
+                    option60W.classList.remove('selected');
+                    selectedOption = '48W';
+                }
+            } else if (wattage === '60W') {
+                if (selectedOption === '60W') {
+                    option60W.classList.remove('selected');
+                    selectedOption = null;
+                } else {
+                    option60W.classList.add('selected');
+                    option48W.classList.remove('selected');
+                    selectedOption = '60W';
+                }
+            }
         }
     </script>
 </body>
