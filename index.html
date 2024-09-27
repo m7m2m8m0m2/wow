@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>簡單購物網站</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .container {
+            display: flex;
+            justify-content: space-between;
+        }
+        .product-list, .cart {
+            width: 45%;
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+        .product {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .product h2 {
+            margin: 0;
+        }
+        .product button {
+            padding: 5px 10px;
+            background-color: #28a745;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .cart-item h2 {
+            margin: 0;
+        }
+        .total {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>簡單購物網站</h1>
+    <div class="container">
+        <div class="product-list">
+            <h2>產品列表</h2>
+            <div class="product">
+                <h2>產品 A</h2>
+                <span>$10</span>
+                <button onclick="addToCart('產品 A', 10)">加入購物車</button>
+            </div>
+            <div class="product">
+                <h2>產品 B</h2>
+                <span>$15</span>
+                <button onclick="addToCart('產品 B', 15)">加入購物車</button>
+            </div>
+            <div class="product">
+                <h2>產品 C</h2>
+                <span>$20</span>
+                <button onclick="addToCart('產品 C', 20)">加入購物車</button>
+            </div>
+        </div>
+
+        <div class="cart">
+            <h2>購物車</h2>
+            <div id="cart-items">
+                <!-- 購物車物品將會顯示在這裡 -->
+            </div>
+            <div class="total">
+                總金額: $<span id="total-amount">0</span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let cart = [];
+        let totalAmount = 0;
+
+        function addToCart(productName, price) {
+            // 新增到購物車
+            cart.push({ name: productName, price: price });
+            totalAmount += price;
+            updateCart();
+        }
+
+        function updateCart() {
+            const cartItemsDiv = document.getElementById('cart-items');
+            const totalAmountSpan = document.getElementById('total-amount');
+            cartItemsDiv.innerHTML = ''; // 清空之前的購物車內容
+
+            cart.forEach(item => {
+                const cartItem = document.createElement('div');
+                cartItem.classList.add('cart-item');
+                cartItem.innerHTML = `<h2>${item.name}</h2><span>$${item.price}</span>`;
+                cartItemsDiv.appendChild(cartItem);
+            });
+
+            totalAmountSpan.innerText = totalAmount;
+        }
+    </script>
+</body>
+</html>
